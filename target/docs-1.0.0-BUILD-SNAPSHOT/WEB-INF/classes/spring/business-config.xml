@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+		
+	<context:property-placeholder location="classpath:spring/application.properties" ignore-resource-not-found="false"/>
+	
+	<beans:import resource="solr-config.xml"/>
+	
+	<tx:annotation-driven />
+	
+	
+	<beans:bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <beans:property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </beans:bean>
+		
+	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	    <beans:property name="driverClassName" value="${jdbc.driver}"/>
+	    <beans:property name="url" value="${jdbc.url}"/>
+	    <beans:property name="username" value="${jdbc.username}"/>
+	    <beans:property name="password" value="${jdbc.password}"/>
+	</beans:bean>		
+	
+	<beans:bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+	
+	<beans:bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <beans:property name="dataSource" ref="dataSource"/>
+        <beans:property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
+        <beans:property name="packagesToScan" value="com.impaq.docs.domain"/>
+        <beans:property name="jpaProperties">
+            <beans:props>
+                <beans:prop key="hibernate.dialect">${hibernate.dialect}</beans:prop>
+                <beans:prop key="hibernate.ejb.naming_strategy">${hibernate.ejb.naming_strategy}</beans:prop>
+                <beans:prop key="hibernate.format_sql">${hibernate.format_sql}</beans:prop>
+                <beans:prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</beans:prop>
+                <beans:prop key="hibernate.show_sql">${hibernate.show_sql}</beans:prop>
+            </beans:props>
+        </beans:property>
+    </beans:bean>
+
+<jpa:repositories base-package="com.impaq.docs.repository"/>
+			
+</beans:beans>

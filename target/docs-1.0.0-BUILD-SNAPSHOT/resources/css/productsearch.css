@@ -1,0 +1,62 @@
+.no-margin
+{
+	margin:0px;
+}
+
+.no-padding
+{
+	padding:0px;
+}
+
+.sb-page-header
+{
+   position: relative;
+   text-align: center;
+   color: rgba(255,255,255,.8);
+   background-color: #b84d45;
+   background-image: url(../images/bg.png);
+   margin-bottom: 20px;
+   font-size: 20px;
+}
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #E8E1E2;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.breakword {
+	word-wrap: break-word;
+}
+
+.doclink {
+    color: blue;
+}
+.doclink:hover, 
+.doclink:focus {
+    color: darkblue;
+}
